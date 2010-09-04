@@ -1,0 +1,6 @@
+cxxlibs >= 6.0.13 | gcc-g++ >= 4.4.4
+gcc >= 4.4.4
+glibc-solibs >= 2.11.1
+mysql >= 5.0
+openssl >= 0.9.8n | openssl-solibs >= 0.9.8n
+zlib >= 1.2.3
