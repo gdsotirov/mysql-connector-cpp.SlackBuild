@@ -1,0 +1,40 @@
+# Fix C includes
+
+diff -urNad mysql-connector-c++-1.1.0-orig/driver/mysql_art_resultset.cpp mysql-connector-c++-1.1.0/driver/mysql_art_resultset.cpp
+--- mysql-connector-c++-1.1.0-orig/driver/mysql_art_resultset.cpp     2010-09-10 12:47:47.000000000 +0300
++++ mysql-connector-c++-1.1.0/driver/mysql_art_resultset.cpp	2011-02-12 12:14:52.000000000 +0200
+@@ -23,8 +23,8 @@
+ */
+ 
+ #include <sstream>
+-#include <math.h>
+-#include <stdio.h>
++#include <cmath>
++#include <cstdio>
+ 
+ #include "mysql_util.h"
+ #include "mysql_art_resultset.h"
+diff -urNad mysql-connector-c++-1.1.0-orig/driver/mysql_resultbind.cpp mysql-connector-c++-1.1.0/driver/mysql_resultbind.cpp
+--- mysql-connector-c++-1.1.0-orig/driver/mysql_resultbind.cpp	2010-09-10 12:47:47.000000000 +0300
++++ mysql-connector-c++-1.1.0/driver/mysql_resultbind.cpp	2011-02-12 12:15:27.000000000 +0200
+@@ -31,7 +31,8 @@
+ #include "nativeapi/native_statement_wrapper.h"
+ #include "nativeapi/native_resultset_wrapper.h"
+ 
+-#include <string.h>
++#include <cstring>
++#include <cstdio>
+ 
+ namespace sql
+ {
+diff -urNad mysql-connector-c++-1.1.0-orig/test/unit/classes/resultsetmetadata.cpp mysql-connector-c++-1.1.0/test/unit/classes/resultsetmetadata.cpp
+--- mysql-connector-c++-1.1.0-orig/test/unit/classes/resultsetmetadata.cpp	2010-09-10 12:47:47.000000000 +0300
++++ mysql-connector-c++-1.1.0/test/unit/classes/resultsetmetadata.cpp	2011-02-12 12:15:59.000000000 +0200
+@@ -27,6 +27,7 @@
+ #include "resultsetmetadata.h"
+ #include <sstream>
+ #include <stdlib.h>
++#include <cstdio>
+ #include <cppconn/resultset.h>
+ #include <cppconn/datatype.h>
+ #include <cppconn/prepared_statement.h>
