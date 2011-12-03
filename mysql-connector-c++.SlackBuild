@@ -19,10 +19,10 @@
 #
 # Visit SlackPack at http://sotirov-bg.net/slackpack/
 #
-# $Id: mysql-connector-c++.SlackBuild,v 1.2 2011/02/12 10:24:53 gsotirov Exp $
+# $Id: mysql-connector-c++.SlackBuild,v 1.3 2011/12/03 15:21:58 gsotirov Exp $
 #
 
-. ../slack-package.conf
+. ../../slack-package.conf
 
 NAME=mysql-connector-c++
 VERSION=1.1.0
@@ -50,22 +50,32 @@ mkdir -p $PKG
 
 # Extract the source
 cd $TMP
-tar -xvf $CWD/$NAME-$VERSION.tar.gz || exit 1
-cd $SRC fix_source
+tar -xvf $CWD/$NAME-$VERSION.tar.gz || exit 3
+cd $SRC
+fix_source
 
 # Apply patches
 patch -p1 -b -z.orig < $CWD/$NAME-$VERSION.diff
 
 # Configure custom build
-cmake -DCMAKE_C_FLAGS="$SLKCFLAGS" \
+cmake . -LA \
+      -DCMAKE_BUILD_TYPE=Release \
+      -DCMAKE_CXX_COMPILER=/usr/bin/g++ \
       -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
-      -DCMAKE_BUILD_TYPE=None \
+      -DCMAKE_C_COMPILER=/usr/bin/gcc \
+      -DCMAKE_C_FLAGS="$SLKCFLAGS" \
       -DCMAKE_INSTALL_PREFIX=/usr \
-      -DMYSQLCPPCONN_BUILD_EXAMPLES=0 || exit 2
+      -DMYSQLCLIENT_STATIC_BINDING=1 \
+      -DMYSQLCPPCONN_BUILD_EXAMPLES=0 || exit 4
 
 # Build and install
-make -j4 || exit 3
-make DESTDIR=$PKG install || exit 4
+make -j4 VERBOSE=1 || exit 5
+make install DESTDIR=$PKG || exit 6
+
+# Rename library directory, as no other way to do this currently
+if [ "$ARCH" = "x86_64" ]; then
+  ( cd  $PKG/usr; mv lib lib${LIBDIRSUFFIX} )
+fi
 
 # Prepare package
 bin_perms $PKG
