@@ -19,13 +19,13 @@
 #
 # Visit SlackPack at http://sotirov-bg.net/slackpack/
 #
-# $Id: mysql-connector-c++.SlackBuild,v 1.4 2012/09/21 12:23:38 gsotirov Exp $
+# $Id: mysql-connector-c++.SlackBuild,v 1.5 2013/02/25 20:48:43 gsotirov Exp $
 #
 
 . ../../slack-package.conf
 
 NAME=mysql-connector-c++
-VERSION=1.1.1
+VERSION=1.1.2
 BUILD=${BUILD:-1}
 
 TMP=${TMP:-/tmp}
@@ -55,7 +55,7 @@ cd $SRC
 fix_source
 
 # Apply patches
-patch -p1 -b -z.orig < $CWD/$NAME-$VERSION.diff
+#patch -p1 -b -z.orig < $CWD/$NAME-$VERSION.diff
 
 # Configure custom build
 cmake . -LA \
@@ -93,7 +93,7 @@ SBDIR=$PKG/usr/src/slackbuilds/$NAME-$VERSION
 install -m 755 -d $SBDIR
 install -m 644 $CWD/slack-desc          $SBDIR/slack-desc
 install -m 644 $CWD/slack-required      $SBDIR/slack-required
-install -m 644 $CWD/$NAME-$VERSION.diff $SBDIR/$NAME-$VERSION.diff
+#install -m 644 $CWD/$NAME-$VERSION.diff $SBDIR/$NAME-$VERSION.diff
 install -m 644 $CWD/$NAME.SlackBuild    $SBDIR/$NAME.SlackBuild
 
 # Build package
