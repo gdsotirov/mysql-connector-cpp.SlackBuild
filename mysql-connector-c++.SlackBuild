@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # Slackware build script for MySQL Connector/C++
-# Copyright (C) 2010,2011 Georgi D. Sotirov <gdsotirov@dir.bg>
+# Copyright (C) 2010-2014 Georgi D. Sotirov <gdsotirov@dir.bg>
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -19,13 +19,13 @@
 #
 # Visit SlackPack at http://sotirov-bg.net/slackpack/
 #
-# $Id: mysql-connector-c++.SlackBuild,v 1.5 2013/02/25 20:48:43 gsotirov Exp $
+# $Id: mysql-connector-c++.SlackBuild,v 1.6 2014/04/01 12:38:23 gsotirov Exp $
 #
 
 . ../../slack-package.conf
 
 NAME=mysql-connector-c++
-VERSION=1.1.2
+VERSION=1.1.3
 BUILD=${BUILD:-1}
 
 TMP=${TMP:-/tmp}
