@@ -19,13 +19,13 @@
 #
 # Visit SlackPack at http://sotirov-bg.net/slackpack/
 #
-# $Id: mysql-connector-c++.SlackBuild,v 1.6 2014/04/01 12:38:23 gsotirov Exp $
+# $Id: mysql-connector-c++.SlackBuild,v 1.7 2014/09/06 13:56:19 gsotirov Exp $
 #
 
 . ../../slack-package.conf
 
 NAME=mysql-connector-c++
-VERSION=1.1.3
+VERSION=1.1.4
 BUILD=${BUILD:-1}
 
 TMP=${TMP:-/tmp}
@@ -62,6 +62,7 @@ cmake . -LA \
       -DCMAKE_BUILD_TYPE=Release \
       -DCMAKE_CXX_COMPILER=/usr/bin/g++ \
       -DCMAKE_CXX_FLAGS="$SLKCFLAGS" \
+      -DMYSQL_CXXFLAGS="$MYSQL_CXXFLAGS -fexceptions" \
       -DCMAKE_C_COMPILER=/usr/bin/gcc \
       -DCMAKE_C_FLAGS="$SLKCFLAGS" \
       -DCMAKE_INSTALL_PREFIX=/usr \
