@@ -19,13 +19,13 @@
 #
 # Visit SlackPack at http://sotirov-bg.net/slackpack/
 #
-# $Id: mysql-connector-c++.SlackBuild,v 1.8 2015/04/24 17:51:28 gsotirov Exp $
+# $Id: mysql-connector-c++.SlackBuild,v 1.9 2015/08/25 17:51:26 gsotirov Exp $
 #
 
 . ../../slack-package.conf
 
 NAME=mysql-connector-c++
-VERSION=1.1.5
+VERSION=1.1.6
 BUILD=${BUILD:-1}
 
 TMP=${TMP:-/tmp}
