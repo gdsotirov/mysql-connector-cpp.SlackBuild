@@ -1,7 +1,7 @@
 #!/bin/sh
 #
 # Slackware build script for MySQL Connector/C++
-# Copyright (C) 2010-2015 Georgi D. Sotirov <gdsotirov@dir.bg>
+# Copyright (C) 2010-2016 Georgi D. Sotirov <gdsotirov@dir.bg>
 #
 # This program is free software; you can redistribute it and/or
 # modify it under the terms of the GNU General Public License
@@ -19,13 +19,13 @@
 #
 # Visit SlackPack at http://sotirov-bg.net/slackpack/
 #
-# $Id: mysql-connector-c++.SlackBuild,v 1.9 2015/08/25 17:51:26 gsotirov Exp $
+# $Id: mysql-connector-c++.SlackBuild,v 1.10 2016/07/11 19:40:58 gsotirov Exp $
 #
 
 . ../../slack-package.conf
 
 NAME=mysql-connector-c++
-VERSION=1.1.6
+VERSION=1.1.7
 BUILD=${BUILD:-1}
 
 TMP=${TMP:-/tmp}
@@ -66,6 +66,8 @@ cmake . -LA \
       -DCMAKE_C_COMPILER=/usr/bin/gcc \
       -DCMAKE_C_FLAGS="$SLKCFLAGS" \
       -DCMAKE_INSTALL_PREFIX=/usr \
+      -DCMAKE_INSTALL_DOCDIR=/usr/doc/${NAME}-${VERSION} \
+      -DCMAKE_INSTALL_LIBDIR=/usr/lib${LIBDIRSUFFIX} \
       -DMYSQLCLIENT_STATIC_BINDING=1 \
       -DMYSQLCPPCONN_BUILD_EXAMPLES=0 || exit 4
 
@@ -73,18 +75,16 @@ cmake . -LA \
 make -j4 VERBOSE=1 || exit 5
 make install DESTDIR=$PKG || exit 6
 
-# Rename library directory, as no other way to do this currently
-if [ "$ARCH" = "x86_64" ]; then
-  ( cd  $PKG/usr; mv lib lib${LIBDIRSUFFIX} )
-fi
+# Remove static dir and docs in wrong place
+( cd $PKG; rm usr/lib${LIBDIRSUFFIX}/libmysqlcppconn-static.a )
+( cd $PKG/usr; rm ANNOUNCEMENT COPYING INSTALL README )
 
 # Prepare package
 bin_perms $PKG
 ( cd $PKG; strip_bin; strip_lib; strip_static )
 DOCFILES="$DOCFILES ANNOUNCEMENT examples"
-( cd $PKG/usr
-  rm README ANNOUNCEMENT COPYING )
 create_docs $PKG $NAME-$VERSION
+( cd $PKG; mv usr/Licenses_for_Third-Party_Components.txt usr/doc/${NAME}-${VERSION}/ )
 
 install -m 755 -d $PKG/install
 install -m 644 $CWD/slack-desc     $PKG/install
